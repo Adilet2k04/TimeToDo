@@ -1,0 +1,30 @@
+{% extends 'todo/base.html' %}
+{% block content %}
+    <a href="{% url 'add_task' %}">Add task</a>
+
+    {% for task in all_tasks %}
+{#<div class="ui segment">#}
+    <p>{{ task.task_title }}</p>
+    <p>{{ task.task_content }}</p>
+    <p>{{ task.task_time_create }}</p>
+        <p>{{ task.task_category }}</p>
+        <p>{{ task.task_due_date }}</p>
+
+
+    {% if task.task_is_complete == False %}
+    <span>Not Completed</span>
+    <a href="{% url 'update_status' task_id=task.id %}">Close Task</a>
+    {% else %}
+    <span>Completed</span>
+    <a href="{% url 'update_status' task_id=task.id %}">Open Task</a>
+    {% endif %}
+    <a href="{% url 'delete_task' task_id=task.id %}">Delete</a>
+    <a href="{% url 'edit_task' task_id=task.id %}">Edit</a>
+
+
+{#</div>#}
+
+{% endfor %}
+
+
+{% endblock content %}
